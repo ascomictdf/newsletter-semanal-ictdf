@@ -113,11 +113,13 @@ const vacations: PersonRecord[] = [
 
 const featureArticle = {
   title:
-    "ICTDF participa do 34º Congresso CMB e fortalece debates sobre o futuro da saúde filantrópica no Brasil",
-  url: "https://ictdf.synergyecosys.io/?p=1586",
-  meta: "21/08/2026 · Amanda Pereira",
+    "I Simpósio Multidisciplinar do ICTDF debate boas práticas em assistência cardiovascular e transplantes",
+  url: "https://www.instagram.com/p/DeHhAvMju3I/",
+  meta: "05/10/2026 · @ictdf_",
   summary:
-    "Representantes do Instituto acompanharam debates sobre sustentabilidade, inovação, gestão e qualidade assistencial durante um dos principais encontros da saúde filantrópica brasileira.",
+    "Entre os dias 25 e 27 de setembro, profissionais e acadêmicos da saúde participaram de três dias de imersão, com teoria, workshops práticos (hands-on) e exposição de trabalhos científicos. O evento abordou temas de alta complexidade, como CEC, ECMO e manejo de vias aéreas, além de debates no auditório do CEUB e premiação de pesquisas acadêmicas.",
+  image: "/simposio-multidisciplinar.png",
+  imageAlt: "Arte do Simpósio Multidisciplinar: boas práticas de assistência cardiovascular e transplantes",
 };
 
 const giroItems = [
@@ -146,24 +148,32 @@ const giroItems = [
 
 const agendaItems = [
   {
-    date: "Definir data",
-    title: "Ação institucional",
-    detail: "Inclua aqui a ação, palestra ou atividade marcada para acontecer no ICTDF.",
+    date: "19 a 31/10",
+    title: "Treinamento RCP",
+    detail:
+      "Convidamos todos os colaboradores das áreas assistenciais e administrativas para participar do treinamento.",
+    url: "https://drive.google.com/file/d/1oRnU5ZvN5VhJZLtZDL1oC4B1w-iyBlNe/view?usp=sharing",
+    linkLabel: "Cronograma",
+  },
+  {
+    date: "21 e 28/10",
+    title: "Projeto Entre Nós: próximos encontros",
+    detail: "21/10: Como lidar melhor com críticas. 28/10: Desenvolvendo empatia nas relações.",
     url: "#",
   },
   {
-    date: "Definir data",
-    title: "Palestra ou capacitação",
-    detail: "Use este espaço para informar local, horário e público-alvo.",
-    url: "#",
-  },
-  {
-    date: "Definir data",
-    title: "Evento interno",
-    detail: "Adicione uma chamada curta para a equipe acompanhar a programação.",
+    date: "08/10 às 7:30",
+    title: "Sessão clínico-científica",
+    detail: "Tema: Estado da arte da terapia renal substitutiva.",
     url: "#",
   },
 ];
+
+const highlightPerson = {
+  name: "Fulano de Tal da Silva",
+  text: "Entrou no ICTDF em 2010 e há 16 anos faz a diferença, com um trabalho de excelência na Farmácia, trazendo inovações e melhorias para os processos.",
+  photo: "/gente-que-faz.png",
+};
 
 async function loadImageDataUrl(src: string) {
   try {
@@ -259,7 +269,7 @@ export default function Home() {
         pdf.text("Informa", margin + 66, 22);
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(9);
-        pdf.text("Edição 50 | 28 de agosto de 2026", margin + 33, 31);
+        pdf.text("Edição 01 | Setembro de 2026", margin + 33, 31);
         pdf.setFillColor(...red);
         pdf.roundedRect(margin + 33, 35, 44, 1.3, 0.6, 0.6, "F");
       };
@@ -382,10 +392,11 @@ export default function Home() {
       sectionHeader("Gente que faz", [11, 98, 180]);
       pdf.setFillColor(...lightBlue);
       pdf.setDrawColor(217, 226, 239);
-      pdf.roundedRect(margin, y - 3, maxWidth, 26, 2, 2, "FD");
+      pdf.roundedRect(margin, y - 3, maxWidth, 32, 2, 2, "FD");
       y += 5;
+      writeLines(highlightPerson.name, 11, blue, "bold", margin + 5, maxWidth - 10);
       writeLines(
-        "Espaço para homenagear um colaborador, uma equipe ou uma trajetória que represente dedicação, cuidado e relevância para o ICTDF.",
+        highlightPerson.text,
         9.5,
         slate,
         "normal",
@@ -408,11 +419,11 @@ export default function Home() {
       }
 
       pdf.setProperties({
-        title: "ICTDF Informa - Edição 50",
+        title: "ICTDF Informa - Edição 01",
         subject: "Newsletter corporativa ICTDF",
       });
 
-      pdf.save("newsletter-ictdf-edicao-50.pdf");
+      pdf.save("newsletter-ictdf-edicao-01.pdf");
     } finally {
       setIsDownloading(false);
     }
@@ -455,11 +466,11 @@ export default function Home() {
                 <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold text-[#082a63]">
                   <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] px-3 py-2">
                     <CalendarDays className="size-4 text-[#ee1b35]" />
-                    Edição 50
+                    Edição 01
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] px-3 py-2">
                     <Megaphone className="size-4 text-[#ee1b35]" />
-                    28 de agosto de 2026
+                    Setembro de 2026
                   </span>
                 </div>
               </div>
@@ -488,11 +499,11 @@ export default function Home() {
                 </a>
               </div>
               <Image
-                alt="Representantes do ICTDF no 34º Congresso CMB"
-                className="h-64 w-full rounded-lg object-cover sm:h-80 lg:h-[360px]"
-                height={968}
-                src="/congresso-cmb.png"
-                width={973}
+                alt={featureArticle.imageAlt}
+                className="h-64 w-full rounded-lg bg-[#f8f1ea] object-contain sm:h-80 lg:h-[360px]"
+                height={349}
+                src={featureArticle.image}
+                width={728}
               />
             </div>
           </section>
@@ -607,7 +618,7 @@ function AgendaAndPeopleSection() {
                 <h3 className="text-sm font-black">{item.title}</h3>
                 <p className="mt-1 text-sm leading-6 text-[#c9d8ec]">{item.detail}</p>
               </div>
-              <AgendaItemButton url={item.url} />
+              <AgendaItemButton label={item.linkLabel} url={item.url} />
             </div>
           ))}
         </div>
@@ -617,16 +628,21 @@ function AgendaAndPeopleSection() {
         <SectionHeading icon={<UsersRound className="size-5" />} title="Gente que faz" />
         <div className="grid gap-5 sm:grid-cols-[1fr_150px] sm:items-center">
           <div>
-            <p className="text-base leading-7 text-[#30415f]">
-              Espaço para homenagear um colaborador, uma equipe ou uma trajetória que represente dedicação,
-              cuidado e relevância para o ICTDF.
-            </p>
+            <p className="text-lg font-black text-[#082a63]">{highlightPerson.name}</p>
+            <p className="mt-2 text-base leading-7 text-[#30415f]">{highlightPerson.text}</p>
             <p className="mt-4 font-black text-[#082a63]">
               Cada história fortalece a cultura de cuidado do Instituto.
             </p>
           </div>
-          <div className="grid aspect-square place-items-center rounded-lg border border-[#d9e2ef] bg-white text-center text-sm font-black uppercase text-[#0b62b4]">
-            Destaque da edição
+          <div className="overflow-hidden rounded-lg border border-[#d9e2ef] bg-white">
+            <Image
+              alt={`Foto de ${highlightPerson.name}`}
+              className="aspect-square w-full object-cover"
+              height={220}
+              src={highlightPerson.photo}
+              width={220}
+            />
+            <p className="px-2 py-2 text-center text-xs font-black uppercase text-[#0b62b4]">Destaque da edição</p>
           </div>
         </div>
       </article>
@@ -634,7 +650,7 @@ function AgendaAndPeopleSection() {
   );
 }
 
-function AgendaItemButton({ url }: { url: string }) {
+function AgendaItemButton({ label = "Ver notícia", url }: { label?: string; url: string }) {
   const hasLink = url !== "#";
   const className =
     "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#ee1b35] px-3 text-xs font-black uppercase text-white transition hover:bg-[#c8142a] sm:w-32";
@@ -642,18 +658,13 @@ function AgendaItemButton({ url }: { url: string }) {
   if (hasLink) {
     return (
       <a className={className} href={url} rel="noreferrer" target="_blank">
-        Ver notícia
+        {label}
         <ArrowUpRight className="size-4" />
       </a>
     );
   }
 
-  return (
-    <button className={className} type="button">
-      Inserir link
-      <ArrowUpRight className="size-4" />
-    </button>
-  );
+  return null;
 }
 
 function CommunicationsSection({

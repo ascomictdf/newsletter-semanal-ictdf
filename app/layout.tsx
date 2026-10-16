@@ -18,18 +18,18 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'ICTDF Informa - Edição 50',
+  title: 'ICTDF Informa - Edição 01',
   description:
     'Newsletter corporativa do ICTDF com matéria da semana, editorias e comunicados de Gestão de Pessoas.',
   openGraph: {
-    title: 'ICTDF Informa - Edição 50',
+    title: 'ICTDF Informa - Edição 01',
     description:
       'Newsletter com matéria da semana, editorias e comunicados internos.',
     images: ['/og.png'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ICTDF Informa - Edição 50',
+    title: 'ICTDF Informa - Edição 01',
     description:
       'Newsletter com matéria da semana, editorias e comunicados internos.',
     images: ['/og.png'],
