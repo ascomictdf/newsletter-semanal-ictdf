@@ -470,37 +470,41 @@ export default function Home() {
 
       <section ref={newsletterRef} className="newsletter-shell mx-auto max-w-[1180px] bg-[#f6f8fb] px-0 py-0 sm:px-6 sm:py-6 lg:px-8">
         <div className="overflow-hidden border-[#d9e2ef] bg-white sm:rounded-lg sm:border sm:shadow-[0_24px_70px_rgba(10,47,107,0.12)]">
-          <header className="relative bg-white px-5 pb-6 pt-6 sm:px-9 sm:pb-7 sm:pt-7 lg:px-12">
-            <div className="grid gap-5 sm:gap-7 lg:grid-cols-[220px_1fr] lg:items-center">
-              <div className="flex items-center gap-4">
+          <header className="relative bg-white px-5 pb-6 pt-5 sm:px-9 sm:pb-8 sm:pt-7 lg:px-12">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex items-center gap-4 sm:gap-6">
                 <Image
                   alt="Logo ICTDF"
-                  className="h-auto w-20 sm:w-28"
+                  className="h-auto w-14 shrink-0 sm:w-20"
                   height={225}
                   priority
                   src="/ictdf-logo.png"
                   width={190}
                 />
-                <span className="hidden h-28 w-px bg-[#c7d2e4] lg:block" />
-              </div>
-
-              <div className="animate-rise">
-                <h1 className="whitespace-nowrap text-[2.5rem] leading-none text-[#082a63] sm:text-7xl">
-                  <span className="font-black">ICTDF</span>{" "}
-                  <span className="font-extralight">Informa</span>
-                </h1>
-                <div className="mt-4 flex flex-wrap gap-2 text-sm font-bold text-[#082a63] sm:gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] px-3 py-2">
-                    <CalendarDays className="size-4 text-[#ee1b35]" />
-                    Edição 01
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] px-3 py-2">
-                    <Megaphone className="size-4 text-[#ee1b35]" />
-                    Setembro de 2026
-                  </span>
+                <span className="h-16 w-px shrink-0 bg-[#c7d2e4] sm:h-20" />
+                <div className="animate-rise min-w-0">
+                  <h1 className="whitespace-nowrap text-[2rem] leading-none text-[#082a63] sm:text-6xl">
+                    <span className="font-black">ICTDF</span>{" "}
+                    <span className="font-extralight">Informa</span>
+                  </h1>
+                  <p className="mt-2 text-xs font-bold leading-5 text-[#607089] sm:text-sm">
+                    Boletim semanal do Instituto de Cardiologia e Transplantes do DF
+                  </p>
                 </div>
               </div>
+
+              <div className="flex flex-wrap gap-2 text-sm font-bold text-[#082a63] sm:gap-3 lg:justify-end">
+                <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] bg-[#f7fafc] px-3 py-2">
+                  <CalendarDays className="size-4 text-[#ee1b35]" />
+                  Edição 01
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] bg-[#f7fafc] px-3 py-2">
+                  <Megaphone className="size-4 text-[#ee1b35]" />
+                  Setembro de 2026
+                </span>
+              </div>
             </div>
+            <span className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#082a63] via-[#0b62b4] to-[#ee1b35]" />
           </header>
 
           <section className="border-y border-[#d9e2ef] bg-[#f7fafc] px-4 py-5 sm:px-9 sm:py-6 lg:px-12">
