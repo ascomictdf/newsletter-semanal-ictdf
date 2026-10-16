@@ -8,6 +8,7 @@ import {
   Bell,
   CalendarDays,
   ChevronDown,
+  Clock,
   Download,
   Loader2,
   LogOut,
@@ -146,25 +147,48 @@ const giroItems = [
   },
 ];
 
-const agendaItems = [
+type AgendaItem = {
+  day: string;
+  month: string;
+  time?: string;
+  date: string;
+  title: string;
+  detail: string;
+  sessions?: { date: string; topic: string }[];
+  url: string;
+  linkLabel?: string;
+};
+
+const agendaItems: AgendaItem[] = [
   {
+    day: "08",
+    month: "Out",
+    time: "7h30",
+    date: "08/10 às 7h30",
+    title: "Sessão clínico-científica",
+    detail: "Tema: Estado da arte da terapia renal substitutiva.",
+    url: "#",
+  },
+  {
+    day: "19–31",
+    month: "Out",
     date: "19 a 31/10",
     title: "Treinamento RCP",
     detail:
       "Convidamos todos os colaboradores das áreas assistenciais e administrativas para participar do treinamento.",
     url: "https://drive.google.com/file/d/1oRnU5ZvN5VhJZLtZDL1oC4B1w-iyBlNe/view?usp=sharing",
-    linkLabel: "Cronograma",
+    linkLabel: "Ver cronograma",
   },
   {
+    day: "21 e 28",
+    month: "Out",
     date: "21 e 28/10",
-    title: "Projeto Entre Nós: próximos encontros",
-    detail: "21/10: Como lidar melhor com críticas. 28/10: Desenvolvendo empatia nas relações.",
-    url: "#",
-  },
-  {
-    date: "08/10 às 7:30",
-    title: "Sessão clínico-científica",
-    detail: "Tema: Estado da arte da terapia renal substitutiva.",
+    title: "Projeto Entre Nós",
+    detail: "Próximos encontros:",
+    sessions: [
+      { date: "21/10", topic: "Como lidar melhor com críticas" },
+      { date: "28/10", topic: "Desenvolvendo empatia nas relações" },
+    ],
     url: "#",
   },
 ];
@@ -385,7 +409,8 @@ export default function Home() {
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(8.5);
         pdf.setTextColor(201, 216, 236);
-        pdf.text(pdf.splitTextToSize(item.detail, maxWidth - 42), margin + 36, y + 11);
+        const detail = [item.detail, ...(item.sessions ?? []).map((session) => `${session.date}: ${session.topic}.`)].join(" ");
+        pdf.text(pdf.splitTextToSize(detail, maxWidth - 42), margin + 36, y + 11);
         y += 27;
       });
 
@@ -610,15 +635,34 @@ function AgendaAndPeopleSection() {
         <SectionHeading icon={<CalendarDays className="size-5" />} inverted title="Acontece ICTDF" />
         <div className="space-y-3">
           {agendaItems.map((item) => (
-            <div className="grid gap-4 rounded-lg bg-white/10 p-3 sm:grid-cols-[92px_1fr_auto] sm:items-center" key={item.title}>
-              <span className="grid min-h-16 place-items-center rounded-lg bg-[#ee1b35] px-3 text-center text-xs font-black uppercase leading-4 text-white">
-                {item.date}
-              </span>
-              <div>
-                <h3 className="text-sm font-black">{item.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-[#c9d8ec]">{item.detail}</p>
+            <div className="flex gap-4 rounded-lg bg-white/10 p-4 transition hover:bg-white/[0.14]" key={item.title}>
+              <div className="flex size-[84px] shrink-0 flex-col items-center justify-center self-start rounded-lg bg-[#ee1b35] px-1.5 text-center text-white shadow-[0_8px_20px_rgba(238,27,53,0.25)]">
+                <span className="whitespace-nowrap text-lg font-black leading-none">{item.day}</span>
+                <span className="mt-1.5 text-[11px] font-black uppercase tracking-widest text-white/85">{item.month}</span>
               </div>
-              <AgendaItemButton label={item.linkLabel} url={item.url} />
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-base font-black leading-snug">{item.title}</h3>
+                  {item.time ? (
+                    <span className="inline-flex items-center gap-1 rounded-md bg-white/15 px-2 py-0.5 text-xs font-black">
+                      <Clock className="size-3.5" />
+                      {item.time}
+                    </span>
+                  ) : null}
+                </div>
+                <p className="mt-1 text-sm leading-6 text-[#c9d8ec]">{item.detail}</p>
+                {item.sessions ? (
+                  <ul className="mt-2 space-y-2">
+                    {item.sessions.map((session) => (
+                      <li className="flex items-start gap-2 text-sm leading-5" key={session.date}>
+                        <span className="shrink-0 rounded-md bg-white/15 px-2 py-0.5 text-xs font-black">{session.date}</span>
+                        <span className="text-[#e3ecf7]">{session.topic}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <AgendaItemButton label={item.linkLabel} url={item.url} />
+              </div>
             </div>
           ))}
         </div>
@@ -653,7 +697,7 @@ function AgendaAndPeopleSection() {
 function AgendaItemButton({ label = "Ver notícia", url }: { label?: string; url: string }) {
   const hasLink = url !== "#";
   const className =
-    "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#ee1b35] px-3 text-xs font-black uppercase text-white transition hover:bg-[#c8142a] sm:w-32";
+    "mt-3 inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-xs font-black uppercase text-[#082a63] transition hover:bg-[#edf4fb]";
 
   if (hasLink) {
     return (
