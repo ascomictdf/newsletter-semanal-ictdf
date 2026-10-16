@@ -456,25 +456,26 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#f6f8fb] text-[#14213d]">
-      <div className="fixed bottom-5 right-5 z-40 flex gap-2 print:hidden">
+      <div className="fixed bottom-4 right-4 z-40 flex gap-2 sm:bottom-5 sm:right-5 print:hidden">
         <Button
-          className="h-12 rounded-lg bg-[#ee1b35] px-4 text-sm font-bold text-white shadow-[0_14px_34px_rgba(238,27,53,0.22)] hover:bg-[#c8142a]"
+          aria-label="Baixar PDF"
+          className="size-12 rounded-full bg-[#ee1b35] p-0 text-sm font-bold sm:h-12 sm:w-auto sm:rounded-lg sm:px-4 text-white shadow-[0_14px_34px_rgba(238,27,53,0.22)] hover:bg-[#c8142a]"
           onClick={downloadPdf}
           type="button"
         >
           {isDownloading ? <Loader2 className="size-4 animate-spin" /> : <Download className="size-4" />}
-          {isDownloading ? "Preparando PDF" : "Baixar PDF"}
+          <span className="hidden sm:inline">{isDownloading ? "Preparando PDF" : "Baixar PDF"}</span>
         </Button>
       </div>
 
-      <section ref={newsletterRef} className="newsletter-shell mx-auto max-w-[1180px] bg-[#f6f8fb] px-4 py-6 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-lg border border-[#d9e2ef] bg-white shadow-[0_24px_70px_rgba(10,47,107,0.12)]">
-          <header className="relative bg-white px-5 pb-7 pt-7 sm:px-9 lg:px-12">
-            <div className="grid gap-7 lg:grid-cols-[220px_1fr] lg:items-center">
+      <section ref={newsletterRef} className="newsletter-shell mx-auto max-w-[1180px] bg-[#f6f8fb] px-0 py-0 sm:px-6 sm:py-6 lg:px-8">
+        <div className="overflow-hidden border-[#d9e2ef] bg-white sm:rounded-lg sm:border sm:shadow-[0_24px_70px_rgba(10,47,107,0.12)]">
+          <header className="relative bg-white px-5 pb-6 pt-6 sm:px-9 sm:pb-7 sm:pt-7 lg:px-12">
+            <div className="grid gap-5 sm:gap-7 lg:grid-cols-[220px_1fr] lg:items-center">
               <div className="flex items-center gap-4">
                 <Image
                   alt="Logo ICTDF"
-                  className="h-auto w-28"
+                  className="h-auto w-20 sm:w-28"
                   height={225}
                   priority
                   src="/ictdf-logo.png"
@@ -484,11 +485,11 @@ export default function Home() {
               </div>
 
               <div className="animate-rise">
-                <h1 className="text-5xl leading-none text-[#082a63] sm:text-7xl">
+                <h1 className="whitespace-nowrap text-[2.5rem] leading-none text-[#082a63] sm:text-7xl">
                   <span className="font-black">ICTDF</span>{" "}
                   <span className="font-extralight">Informa</span>
                 </h1>
-                <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold text-[#082a63]">
+                <div className="mt-4 flex flex-wrap gap-2 text-sm font-bold text-[#082a63] sm:gap-3">
                   <span className="inline-flex items-center gap-2 rounded-lg border border-[#d9e2ef] px-3 py-2">
                     <CalendarDays className="size-4 text-[#ee1b35]" />
                     Edição 01
@@ -502,35 +503,45 @@ export default function Home() {
             </div>
           </header>
 
-          <section className="border-y border-[#d9e2ef] bg-[#f7fafc] px-5 py-6 sm:px-9 lg:px-12">
-            <div className="animate-rise grid gap-6 rounded-lg border border-[#d9e2ef] bg-white p-5 sm:p-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,1.6fr)] lg:items-center">
-              <div className="max-w-xl">
-                <span className="inline-flex items-center gap-2 rounded-lg bg-[#ee1b35] px-3 py-1 text-xs font-black uppercase text-white">
+          <section className="border-y border-[#d9e2ef] bg-[#f7fafc] px-4 py-5 sm:px-9 sm:py-6 lg:px-12">
+            <article className="animate-rise overflow-hidden rounded-lg border border-[#d9e2ef] bg-white shadow-[0_10px_26px_rgba(10,47,107,0.07)]">
+              <div className="relative bg-[#f8f1ea]">
+                <Image
+                  alt={featureArticle.imageAlt}
+                  className="h-auto w-full"
+                  height={349}
+                  priority
+                  src={featureArticle.image}
+                  width={728}
+                />
+                <span className="absolute left-3 top-3 inline-flex items-center rounded-lg bg-[#ee1b35] px-3 py-1 text-xs font-black uppercase text-white shadow-[0_6px_16px_rgba(238,27,53,0.3)] sm:left-5 sm:top-5">
                   Matéria da semana
                 </span>
-                <h2 className="mt-3 max-w-3xl text-2xl font-black leading-tight text-[#082a63] sm:text-3xl">
-                  {featureArticle.title}
-                </h2>
-                <p className="mt-2 text-sm font-bold uppercase text-[#607089]">{featureArticle.meta}</p>
-                <p className="mt-3 max-w-3xl text-sm leading-6 text-[#30415f]">{featureArticle.summary}</p>
-                <a
-                  className="mt-5 inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#082a63] px-4 text-sm font-bold text-white transition hover:bg-[#0b3f88]"
-                  href={featureArticle.url}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Leia a matéria completa
-                  <ArrowUpRight className="size-4" />
-                </a>
               </div>
-              <Image
-                alt={featureArticle.imageAlt}
-                className="h-64 w-full rounded-lg bg-[#f8f1ea] object-contain sm:h-80 lg:h-[360px]"
-                height={349}
-                src={featureArticle.image}
-                width={728}
-              />
-            </div>
+              <div className="grid gap-4 border-t-4 border-[#ee1b35] p-4 sm:p-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10 lg:p-8">
+                <div>
+                  <h2 className="text-[1.375rem] font-black leading-tight text-[#082a63] sm:text-3xl">
+                    {featureArticle.title}
+                  </h2>
+                  <p className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#607089]">
+                    <CalendarDays className="size-4 text-[#ee1b35]" />
+                    {featureArticle.meta}
+                  </p>
+                </div>
+                <div className="lg:border-l lg:border-[#d9e2ef] lg:pl-10">
+                  <p className="text-sm leading-6 text-[#30415f] sm:text-[15px] sm:leading-7">{featureArticle.summary}</p>
+                  <a
+                    className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#082a63] px-5 text-sm font-bold text-white transition hover:bg-[#0b3f88] sm:w-auto"
+                    href={featureArticle.url}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Leia a matéria completa
+                    <ArrowUpRight className="size-4" />
+                  </a>
+                </div>
+              </div>
+            </article>
           </section>
 
           <GiroSection />
@@ -539,7 +550,7 @@ export default function Home() {
 
           <CommunicationsSection openLists={openLists} setOpenLists={setOpenLists} />
 
-          <footer className="bg-[#082a63] px-5 py-6 text-white sm:px-9 lg:px-12">
+          <footer className="bg-[#082a63] px-5 pb-20 pt-6 text-white sm:px-9 sm:pb-6 lg:px-12">
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
               <div className="flex items-center gap-4">
                 <Bell className="size-10 rounded-lg bg-[#ee1b35] p-2" />
@@ -576,7 +587,7 @@ function SectionHeading({
         <span className={`grid size-11 place-items-center rounded-full ${inverted ? "bg-white text-[#082a63]" : "bg-[#082a63] text-white"}`}>
           {icon}
         </span>
-        <h2 className={`text-2xl font-black ${inverted ? "text-white" : "text-[#082a63]"}`}>{title}</h2>
+        <h2 className={`text-xl font-black sm:text-2xl ${inverted ? "text-white" : "text-[#082a63]"}`}>{title}</h2>
         <span className={`hidden h-px w-28 sm:block ${inverted ? "bg-white/40" : "bg-[#ee1b35]"}`} />
       </div>
       {action ? <p className={`text-sm font-bold ${inverted ? "text-[#c9d8ec]" : "text-[#607089]"}`}>{action}</p> : null}
@@ -599,12 +610,12 @@ function PlaceholderLinkButton() {
 
 function GiroSection() {
   return (
-    <section className="px-5 py-7 sm:px-9 lg:px-12">
+    <section className="px-4 py-6 sm:px-9 sm:py-7 lg:px-12">
       <SectionHeading action="Veja outras notícias" icon={<Megaphone className="size-5" />} title="Giro ICTDF" />
       <div className="grid gap-4 md:grid-cols-3">
         {giroItems.map((item) => (
           <article className="overflow-hidden rounded-lg border border-[#d9e2ef] bg-white shadow-[0_10px_26px_rgba(10,47,107,0.08)]" key={item.title}>
-            <div className="h-36 bg-[#f7fafc]">
+            <div className="h-44 bg-[#f7fafc] md:h-36">
               <Image
                 alt=""
                 className={`h-full w-full object-cover ${item.image.includes("ictdf-logo") ? "object-contain p-7" : ""}`}
@@ -630,19 +641,19 @@ function GiroSection() {
 
 function AgendaAndPeopleSection() {
   return (
-    <section className="grid gap-5 px-5 pb-7 sm:px-9 lg:grid-cols-[1fr_1fr] lg:px-12">
-      <article className="rounded-lg bg-[#082a63] p-5 text-white">
+    <section className="grid gap-5 px-4 pb-6 sm:px-9 sm:pb-7 lg:grid-cols-[1fr_1fr] lg:px-12">
+      <article className="rounded-lg bg-[#082a63] p-4 text-white sm:p-5">
         <SectionHeading icon={<CalendarDays className="size-5" />} inverted title="Acontece ICTDF" />
         <div className="space-y-3">
           {agendaItems.map((item) => (
-            <div className="flex gap-4 rounded-lg bg-white/10 p-4 transition hover:bg-white/[0.14]" key={item.title}>
-              <div className="flex size-[84px] shrink-0 flex-col items-center justify-center self-start rounded-lg bg-[#ee1b35] px-1.5 text-center text-white shadow-[0_8px_20px_rgba(238,27,53,0.25)]">
-                <span className="whitespace-nowrap text-lg font-black leading-none">{item.day}</span>
+            <div className="flex gap-3 rounded-lg bg-white/10 p-3 transition sm:gap-4 sm:p-4 hover:bg-white/[0.14]" key={item.title}>
+              <div className="flex size-[68px] shrink-0 sm:size-[84px] flex-col items-center justify-center self-start rounded-lg bg-[#ee1b35] px-1.5 text-center text-white shadow-[0_8px_20px_rgba(238,27,53,0.25)]">
+                <span className="whitespace-nowrap text-[15px] font-black leading-none sm:text-lg">{item.day}</span>
                 <span className="mt-1.5 text-[11px] font-black uppercase tracking-widest text-white/85">{item.month}</span>
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-base font-black leading-snug">{item.title}</h3>
+                  <h3 className="text-[15px] font-black leading-snug sm:text-base">{item.title}</h3>
                   {item.time ? (
                     <span className="inline-flex items-center gap-1 rounded-md bg-white/15 px-2 py-0.5 text-xs font-black">
                       <Clock className="size-3.5" />
@@ -668,13 +679,13 @@ function AgendaAndPeopleSection() {
         </div>
       </article>
 
-      <article className="rounded-lg border border-[#d9e2ef] bg-[#f7fafc] p-5">
+      <article className="rounded-lg border border-[#d9e2ef] bg-[#f7fafc] p-4 sm:p-5">
         <SectionHeading icon={<UsersRound className="size-5" />} title="Gente que faz" />
-        <div className="grid gap-5 sm:grid-cols-[1fr_150px] sm:items-center">
+        <div className="grid grid-cols-[1fr_96px] items-start gap-4 sm:grid-cols-[1fr_150px] sm:items-center sm:gap-5">
           <div>
-            <p className="text-lg font-black text-[#082a63]">{highlightPerson.name}</p>
-            <p className="mt-2 text-base leading-7 text-[#30415f]">{highlightPerson.text}</p>
-            <p className="mt-4 font-black text-[#082a63]">
+            <p className="text-base font-black text-[#082a63] sm:text-lg">{highlightPerson.name}</p>
+            <p className="mt-2 text-sm leading-6 text-[#30415f] sm:text-base sm:leading-7">{highlightPerson.text}</p>
+            <p className="col-span-2 mt-1 text-sm font-black text-[#082a63] sm:col-span-1 sm:mt-4 sm:text-base">
               Cada história fortalece a cultura de cuidado do Instituto.
             </p>
           </div>
@@ -686,7 +697,7 @@ function AgendaAndPeopleSection() {
               src={highlightPerson.photo}
               width={220}
             />
-            <p className="px-2 py-2 text-center text-xs font-black uppercase text-[#0b62b4]">Destaque da edição</p>
+            <p className="px-1 py-1.5 text-center text-[10px] font-black uppercase leading-tight text-[#0b62b4] sm:px-2 sm:py-2 sm:text-xs">Destaque da edição</p>
           </div>
         </div>
       </article>
@@ -726,8 +737,8 @@ function CommunicationsSection({
   }
 
   return (
-    <section className="space-y-4 px-5 pb-8 sm:px-9 lg:px-12">
-      <h2 className="text-2xl font-black text-[#082a63]">Comunicados Institucionais</h2>
+    <section className="space-y-4 px-4 pb-8 sm:px-9 lg:px-12">
+      <h2 className="text-xl font-black text-[#082a63] sm:text-2xl">Comunicados Institucionais</h2>
       <button
         className="group grid w-full gap-3 rounded-lg border border-[#d9e2ef] bg-white p-4 text-left shadow-[0_10px_26px_rgba(10,47,107,0.07)] transition hover:-translate-y-0.5 hover:border-[#9bb4d4] hover:shadow-[0_16px_36px_rgba(10,47,107,0.12)] sm:grid-cols-[auto_1fr_auto] sm:items-center"
         onClick={() => setIsOpen(true)}
@@ -751,19 +762,19 @@ function CommunicationsSection({
 
       {isOpen ? (
         <div
-          className="fixed inset-0 z-50 grid place-items-center bg-[#082a63]/20 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 grid place-items-center bg-[#082a63]/20 p-3 backdrop-blur-sm sm:p-4"
           onClick={() => setIsOpen(false)}
           role="presentation"
         >
           <div
             aria-modal="true"
-            className="animate-rise relative max-h-[86vh] w-full max-w-5xl overflow-y-auto rounded-[22px] border border-[#d9e2ef] bg-white shadow-[0_28px_90px_rgba(8,42,99,0.25)]"
+            className="animate-rise relative max-h-[90vh] w-full max-w-5xl sm:max-h-[86vh] overflow-y-auto rounded-[22px] border border-[#d9e2ef] bg-white shadow-[0_28px_90px_rgba(8,42,99,0.25)]"
             onClick={(event) => event.stopPropagation()}
             role="dialog"
           >
-            <header className="rounded-t-[22px] bg-[#082a63] px-5 py-5 pr-28 text-white sm:px-7">
+            <header className="rounded-t-[22px] bg-[#082a63] px-5 py-5 pr-16 text-white sm:px-7 sm:pr-28">
               <p className="text-xs font-black uppercase text-[#7fd0ff]">Comunicados Institucionais</p>
-              <h3 className="mt-2 text-2xl font-black text-white">Gestão de Pessoas</h3>
+              <h3 className="mt-2 text-xl font-black text-white sm:text-2xl">Gestão de Pessoas</h3>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-[#c9d8ec]">
                 A Gerência de Gestão de Pessoas informa movimentações de colaboradores registradas nesta edição.
               </p>
@@ -771,14 +782,14 @@ function CommunicationsSection({
 
             <button
               aria-label="Fechar comunicados"
-              className="absolute right-4 top-4 grid size-12 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+              className="absolute right-3 top-3 grid size-10 sm:right-4 sm:top-4 sm:size-12 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
               onClick={() => setIsOpen(false)}
               type="button"
             >
-              <X className="size-8 stroke-[3]" />
+              <X className="size-6 stroke-[3] sm:size-8" />
             </button>
 
-            <div className="space-y-5 bg-[#f7fafc] p-4 sm:p-6">
+            <div className="space-y-4 bg-[#f7fafc] p-3 sm:space-y-5 sm:p-6">
               {admissions.length > 0 ? (
                 <PeopleSection
                   accent="#008f5b"
