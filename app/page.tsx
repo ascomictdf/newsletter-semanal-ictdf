@@ -4,12 +4,14 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { useRef, useState } from "react";
 import {
+  ArrowRight,
   ArrowUpRight,
   Bell,
   CalendarDays,
   ChevronDown,
   Clock,
   Download,
+  Heart,
   Loader2,
   LogOut,
   Megaphone,
@@ -114,11 +116,11 @@ const vacations: PersonRecord[] = [
 
 const featureArticle = {
   title:
-    "I Simpósio Multidisciplinar do ICTDF debate boas práticas em assistência cardiovascular e transplantes",
+    "I Simpósio Multidisciplinar do ICTDF debate boas práticas e inovação",
   url: "https://www.instagram.com/p/DeHhAvMju3I/",
   meta: "05/10/2026 · @ictdf_",
   summary:
-    "Entre os dias 25 e 27 de setembro, profissionais e acadêmicos da saúde participaram de três dias de imersão, com teoria, workshops práticos (hands-on) e exposição de trabalhos científicos. O evento abordou temas de alta complexidade, como CEC, ECMO e manejo de vias aéreas, além de debates no auditório do CEUB e premiação de pesquisas acadêmicas.",
+    "Três dias de imersão com teoria, workshops práticos e exposição de trabalhos científicos focados na excelência da assistência cardiovascular e transplantes.",
   image: "/simposio-multidisciplinar.png",
   imageAlt: "Arte do Simpósio Multidisciplinar: boas práticas de assistência cardiovascular e transplantes",
 };
@@ -148,8 +150,9 @@ const giroItems = [
 ];
 
 type AgendaItem = {
-  day: string;
   month: string;
+  day: string;
+  dayNote?: string;
   time?: string;
   date: string;
   title: string;
@@ -161,27 +164,29 @@ type AgendaItem = {
 
 const agendaItems: AgendaItem[] = [
   {
-    day: "08",
     month: "Out",
-    time: "7h30",
+    day: "08",
+    time: "07:30",
     date: "08/10 às 7h30",
     title: "Sessão clínico-científica",
     detail: "Tema: Estado da arte da terapia renal substitutiva.",
     url: "#",
   },
   {
-    day: "19–31",
     month: "Out",
+    day: "19",
+    dayNote: "a 31",
     date: "19 a 31/10",
     title: "Treinamento RCP",
     detail:
       "Convidamos todos os colaboradores das áreas assistenciais e administrativas para participar do treinamento.",
     url: "https://drive.google.com/file/d/1oRnU5ZvN5VhJZLtZDL1oC4B1w-iyBlNe/view?usp=sharing",
-    linkLabel: "Ver cronograma",
+    linkLabel: "Acessar cronograma",
   },
   {
-    day: "21 e 28",
     month: "Out",
+    day: "21",
+    dayNote: "e 28",
     date: "21 e 28/10",
     title: "Projeto Entre Nós",
     detail: "Próximos encontros:",
@@ -193,8 +198,16 @@ const agendaItems: AgendaItem[] = [
   },
 ];
 
+const agendaBadgeStyles = [
+  "bg-[#082a63] text-white",
+  "bg-[#ee1b35] text-white",
+  "border-2 border-[#d9e2ef] bg-white text-[#082a63]",
+];
+
 const highlightPerson = {
   name: "Fulano de Tal da Silva",
+  area: "Farmácia",
+  tenure: "16 anos de casa",
   text: "Entrou no ICTDF em 2010 e há 16 anos faz a diferença, com um trabalho de excelência na Farmácia, trazendo inovações e melhorias para os processos.",
   photo: "/gente-que-faz.png",
 };
@@ -393,7 +406,7 @@ export default function Home() {
         y += 29;
       });
 
-      sectionHeader("Acontece ICTDF", red);
+      sectionHeader("Acontece no ICTDF", red);
       agendaItems.forEach((item) => {
         ensureSpace(22);
         pdf.setFillColor(...blue);
@@ -508,42 +521,39 @@ export default function Home() {
           </header>
 
           <section className="border-y border-[#d9e2ef] bg-[#f7fafc] px-4 py-5 sm:px-9 sm:py-6 lg:px-12">
-            <article className="animate-rise overflow-hidden rounded-lg border border-[#d9e2ef] bg-white shadow-[0_10px_26px_rgba(10,47,107,0.07)]">
-              <div className="relative bg-[#f8f1ea]">
+            <article className="animate-rise relative overflow-hidden rounded-2xl bg-[#082a63] text-white shadow-[0_18px_44px_rgba(8,42,99,0.28)]">
+              <div className="relative lg:absolute lg:inset-0">
                 <Image
                   alt={featureArticle.imageAlt}
-                  className="h-auto w-full"
+                  className="h-auto w-full lg:h-full lg:object-cover lg:object-right"
                   height={349}
                   priority
                   src={featureArticle.image}
                   width={728}
                 />
-                <span className="absolute left-3 top-3 inline-flex items-center rounded-lg bg-[#ee1b35] px-3 py-1 text-xs font-black uppercase text-white shadow-[0_6px_16px_rgba(238,27,53,0.3)] sm:left-5 sm:top-5">
-                  Matéria da semana
-                </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#082a63] via-[#082a63]/10 to-transparent lg:bg-gradient-to-r lg:from-[#082a63] lg:from-25% lg:via-[#082a63]/80 lg:via-45% lg:to-transparent lg:to-70%" />
               </div>
-              <div className="grid gap-4 border-t-4 border-[#ee1b35] p-4 sm:p-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10 lg:p-8">
-                <div>
-                  <h2 className="text-[1.375rem] font-black leading-tight text-[#082a63] sm:text-3xl">
-                    {featureArticle.title}
-                  </h2>
-                  <p className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#607089]">
-                    <CalendarDays className="size-4 text-[#ee1b35]" />
+              <div className="relative px-5 pb-6 sm:px-8 sm:pb-8 lg:flex lg:min-h-[440px] lg:max-w-[52%] lg:flex-col lg:justify-end lg:p-10">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center rounded-full bg-[#ee1b35] px-3 py-1 text-xs font-black uppercase text-white">
+                    Matéria da semana
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c9d8ec]">
+                    <CalendarDays className="size-3.5" />
                     {featureArticle.meta}
-                  </p>
+                  </span>
                 </div>
-                <div className="lg:border-l lg:border-[#d9e2ef] lg:pl-10">
-                  <p className="text-sm leading-6 text-[#30415f] sm:text-[15px] sm:leading-7">{featureArticle.summary}</p>
-                  <a
-                    className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#082a63] px-5 text-sm font-bold text-white transition hover:bg-[#0b3f88] sm:w-auto"
-                    href={featureArticle.url}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Leia a matéria completa
-                    <ArrowUpRight className="size-4" />
-                  </a>
-                </div>
+                <h2 className="mt-4 text-[1.625rem] font-black leading-[1.12] sm:text-4xl">{featureArticle.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-[#dbe6f5] sm:text-base sm:leading-7">{featureArticle.summary}</p>
+                <a
+                  className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#ee1b35] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(238,27,53,0.35)] transition hover:bg-[#c8142a] sm:w-auto sm:self-start"
+                  href={featureArticle.url}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Ler matéria completa
+                  <ArrowRight className="size-4" />
+                </a>
               </div>
             </article>
           </section>
@@ -645,85 +655,104 @@ function GiroSection() {
 
 function AgendaAndPeopleSection() {
   return (
-    <section className="grid gap-5 px-4 pb-6 sm:px-9 sm:pb-7 lg:grid-cols-[1fr_1fr] lg:px-12">
-      <article className="rounded-lg bg-[#082a63] p-4 text-white sm:p-5">
-        <SectionHeading icon={<CalendarDays className="size-5" />} inverted title="Acontece ICTDF" />
+    <section className="grid gap-6 px-4 pb-6 sm:px-9 sm:pb-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-8 lg:px-12">
+      <div>
+        <div className="mb-5 flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-xl bg-[#edf4fb] text-[#0b62b4]">
+            <CalendarDays className="size-5" />
+          </span>
+          <h2 className="text-xl font-black text-[#082a63] sm:text-2xl">Acontece no ICTDF</h2>
+        </div>
         <div className="space-y-3">
-          {agendaItems.map((item) => (
-            <div className="flex gap-3 rounded-lg bg-white/10 p-3 transition sm:gap-4 sm:p-4 hover:bg-white/[0.14]" key={item.title}>
-              <div className="flex size-[68px] shrink-0 sm:size-[84px] flex-col items-center justify-center self-start rounded-lg bg-[#ee1b35] px-1.5 text-center text-white shadow-[0_8px_20px_rgba(238,27,53,0.25)]">
-                <span className="whitespace-nowrap text-[15px] font-black leading-none sm:text-lg">{item.day}</span>
-                <span className="mt-1.5 text-[11px] font-black uppercase tracking-widest text-white/85">{item.month}</span>
+          {agendaItems.map((item, index) => (
+            <article
+              className="flex items-start gap-4 rounded-xl border border-[#e6ecf4] bg-white p-4 shadow-[0_4px_14px_rgba(10,47,107,0.05)] transition hover:border-[#c7d2e4] hover:shadow-[0_8px_22px_rgba(10,47,107,0.09)]"
+              key={item.title}
+            >
+              <div
+                className={`flex w-16 shrink-0 flex-col items-center justify-center rounded-lg py-2 text-center ${agendaBadgeStyles[index % agendaBadgeStyles.length]}`}
+              >
+                <span className="text-[11px] font-bold uppercase tracking-wider opacity-80">{item.month}</span>
+                <span className="text-2xl font-black leading-none">{item.day}</span>
+                {item.dayNote ? <span className="mt-0.5 text-xs font-bold">{item.dayNote}</span> : null}
               </div>
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 self-center">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-[15px] font-black leading-snug sm:text-base">{item.title}</h3>
+                  <h3 className="text-base font-black leading-snug text-[#082a63]">{item.title}</h3>
                   {item.time ? (
-                    <span className="inline-flex items-center gap-1 rounded-md bg-white/15 px-2 py-0.5 text-xs font-black">
+                    <span className="inline-flex items-center gap-1 rounded-md border border-[#e6ecf4] bg-[#f7fafc] px-2 py-0.5 text-xs font-bold text-[#30415f]">
                       <Clock className="size-3.5" />
                       {item.time}
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-1 text-sm leading-6 text-[#c9d8ec]">{item.detail}</p>
+                <p className="mt-1 text-sm leading-6 text-[#607089]">{item.detail}</p>
                 {item.sessions ? (
-                  <ul className="mt-2 space-y-2">
+                  <ul className="mt-2 space-y-1.5">
                     {item.sessions.map((session) => (
-                      <li className="flex items-start gap-2 text-sm leading-5" key={session.date}>
-                        <span className="shrink-0 rounded-md bg-white/15 px-2 py-0.5 text-xs font-black">{session.date}</span>
-                        <span className="text-[#e3ecf7]">{session.topic}</span>
+                      <li className="flex items-start gap-2 text-sm leading-5 text-[#30415f]" key={session.date}>
+                        <span className="shrink-0 rounded-md bg-[#edf4fb] px-2 py-0.5 text-xs font-black text-[#0b62b4]">
+                          {session.date}
+                        </span>
+                        <span>{session.topic}</span>
                       </li>
                     ))}
                   </ul>
                 ) : null}
                 <AgendaItemButton label={item.linkLabel} url={item.url} />
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </article>
+      </div>
 
-      <article className="rounded-lg border border-[#d9e2ef] bg-[#f7fafc] p-4 sm:p-5">
-        <SectionHeading icon={<UsersRound className="size-5" />} title="Gente que faz" />
-        <div className="grid grid-cols-[1fr_96px] items-start gap-4 sm:grid-cols-[1fr_150px] sm:items-center sm:gap-5">
-          <div>
-            <p className="text-base font-black text-[#082a63] sm:text-lg">{highlightPerson.name}</p>
-            <p className="mt-2 text-sm leading-6 text-[#30415f] sm:text-base sm:leading-7">{highlightPerson.text}</p>
-            <p className="col-span-2 mt-1 text-sm font-black text-[#082a63] sm:col-span-1 sm:mt-4 sm:text-base">
-              Cada história fortalece a cultura de cuidado do Instituto.
-            </p>
-          </div>
-          <div className="overflow-hidden rounded-lg border border-[#d9e2ef] bg-white">
+      <article className="relative self-start overflow-hidden rounded-2xl bg-gradient-to-br from-[#1f47b0] to-[#0b2a7a] p-6 text-white shadow-[0_18px_44px_rgba(11,42,122,0.3)] sm:p-7">
+        <Heart className="pointer-events-none absolute -right-8 -top-6 size-48 fill-white/5 text-white/5" />
+        <span className="relative inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-[#a9c8ff]">
+          Gente que faz
+        </span>
+        <div className="relative mt-5 flex flex-col items-center text-center">
+          <div className="size-28 overflow-hidden rounded-full border-4 border-white/25 bg-white shadow-[0_0_0_6px_rgba(255,255,255,0.08)]">
             <Image
               alt={`Foto de ${highlightPerson.name}`}
-              className="aspect-square w-full object-cover"
+              className="size-full object-cover"
               height={220}
               src={highlightPerson.photo}
               width={220}
             />
-            <p className="px-1 py-1.5 text-center text-[10px] font-black uppercase leading-tight text-[#0b62b4] sm:px-2 sm:py-2 sm:text-xs">Destaque da edição</p>
           </div>
+          <p className="mt-4 text-xl font-black">{highlightPerson.name}</p>
+          <p className="mt-1 text-sm font-bold text-[#c9d8ec]">
+            {highlightPerson.area} • {highlightPerson.tenure}
+          </p>
         </div>
+        <p className="relative mt-5 rounded-xl border border-white/15 bg-white/10 p-4 text-sm leading-6 text-[#eef3fb]">
+          {highlightPerson.text}
+        </p>
+        <p className="relative mt-4 text-center text-xs font-bold text-[#a9c8ff]">
+          Cada história fortalece a cultura de cuidado do Instituto.
+        </p>
       </article>
     </section>
   );
 }
 
 function AgendaItemButton({ label = "Ver notícia", url }: { label?: string; url: string }) {
-  const hasLink = url !== "#";
-  const className =
-    "mt-3 inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-xs font-black uppercase text-[#082a63] transition hover:bg-[#edf4fb]";
-
-  if (hasLink) {
-    return (
-      <a className={className} href={url} rel="noreferrer" target="_blank">
-        {label}
-        <ArrowUpRight className="size-4" />
-      </a>
-    );
+  if (url === "#") {
+    return null;
   }
 
-  return null;
+  return (
+    <a
+      className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-[#0b62b4] transition hover:text-[#082a63] hover:underline"
+      href={url}
+      rel="noreferrer"
+      target="_blank"
+    >
+      {label}
+      <ArrowRight className="size-4" />
+    </a>
+  );
 }
 
 function CommunicationsSection({
