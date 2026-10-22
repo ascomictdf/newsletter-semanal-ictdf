@@ -2,20 +2,26 @@
 
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
   Bell,
   CalendarDays,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   Download,
   Heart,
+  Info,
   Loader2,
   LogOut,
   Megaphone,
+  MessageCircle,
   Plane,
+  ShoppingBag,
+  Store,
   UserPlus,
   UsersRound,
   X,
@@ -211,6 +217,64 @@ const highlightPerson = {
   text: "Entrou no ICTDF em 2010 e há 16 anos faz a diferença, com um trabalho de excelência na Farmácia, trazendo inovações e melhorias para os processos.",
   photo: "/gente-que-faz.png",
 };
+
+type ShowcaseProduct = {
+  name: string;
+  description: string;
+  seller: string;
+  // Caminho de uma imagem em /public (ex.: "/vitrine/bolo.jpg"). Sem imagem, aparece um ícone.
+  image?: string;
+  // Número do WhatsApp com DDI e DDD, só dígitos (ex.: "5561999999999").
+  whatsapp: string;
+};
+
+// Produtos de exemplo: substitua pelos anúncios reais dos colaboradores.
+const showcaseProducts: ShowcaseProduct[] = [
+  {
+    name: "Bolos de pote",
+    image: "/vitrine/bolos-de-pote.svg",
+    description: "Sabores variados, feitos sob encomenda.",
+    seller: "Nome do colaborador · Setor",
+    whatsapp: "",
+  },
+  {
+    name: "Bijuterias artesanais",
+    image: "/vitrine/bijuterias.svg",
+    description: "Brincos, colares e pulseiras feitos à mão.",
+    seller: "Nome do colaborador · Setor",
+    whatsapp: "",
+  },
+  {
+    name: "Salgados para festas",
+    image: "/vitrine/salgados.svg",
+    description: "Cento de salgados fritos e assados.",
+    seller: "Nome do colaborador · Setor",
+    whatsapp: "",
+  },
+  {
+    name: "Peças em crochê",
+    image: "/vitrine/croche.svg",
+    description: "Tapetes, bolsas e itens decorativos.",
+    seller: "Nome do colaborador · Setor",
+    whatsapp: "",
+  },
+  {
+    name: "Cosméticos e perfumaria",
+    image: "/vitrine/cosmeticos.svg",
+    description: "Revenda de marcas nacionais com entrega no ICTDF.",
+    seller: "Nome do colaborador · Setor",
+    whatsapp: "",
+  },
+];
+
+// Passo a passo exibido em "Como anunciar". Deixe vazio para mostrar o aviso de "em breve".
+const showcaseAnnounceSteps: string[] = [];
+
+function whatsappLink(product: ShowcaseProduct) {
+  if (!product.whatsapp) return null;
+  const message = `Olá! Vi o produto "${product.name}" na Vitrine do Colaborador do ICTDF Informa.`;
+  return `https://wa.me/${product.whatsapp}?text=${encodeURIComponent(message)}`;
+}
 
 async function loadImageDataUrl(src: string) {
   try {
@@ -562,6 +626,8 @@ export default function Home() {
 
           <AgendaAndPeopleSection />
 
+          <ShowcaseSection />
+
           <CommunicationsSection openLists={openLists} setOpenLists={setOpenLists} />
 
           <footer className="bg-[#082a63] px-5 pb-20 pt-6 text-white sm:px-9 sm:pb-6 lg:px-12">
@@ -752,6 +818,198 @@ function AgendaItemButton({ label = "Ver notícia", url }: { label?: string; url
       {label}
       <ArrowRight className="size-4" />
     </a>
+  );
+}
+
+function ShowcaseSection() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState<ShowcaseProduct | null>(null);
+  const [isAnnounceOpen, setIsAnnounceOpen] = useState(false);
+
+  if (showcaseProducts.length === 0) {
+    return null;
+  }
+
+  function scrollBy(direction: 1 | -1) {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    scroller.scrollBy({ left: direction * scroller.clientWidth * 0.8, behavior: "smooth" });
+  }
+
+  const selectedLink = selected ? whatsappLink(selected) : null;
+
+  return (
+    <section className="border-t border-[#e6ecf4] bg-[#f7fafc] px-4 py-6 sm:px-9 sm:py-8 lg:px-12">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-xl bg-[#e6f6ef] text-[#008f5b]">
+            <Store className="size-5" />
+          </span>
+          <div>
+            <h2 className="text-xl font-black text-[#082a63] sm:text-2xl">Vitrine do Colaborador</h2>
+            <p className="text-sm font-bold text-[#607089]">Apoio ao empreendedorismo da nossa equipe</p>
+          </div>
+        </div>
+        <div className="hidden gap-2 sm:flex">
+          <button
+            aria-label="Produtos anteriores"
+            className="grid size-10 place-items-center rounded-full border border-[#d9e2ef] bg-white text-[#082a63] shadow-sm transition hover:border-[#9bb4d4] hover:bg-[#edf4fb]"
+            onClick={() => scrollBy(-1)}
+            type="button"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+          <button
+            aria-label="Próximos produtos"
+            className="grid size-10 place-items-center rounded-full border border-[#d9e2ef] bg-white text-[#082a63] shadow-sm transition hover:border-[#9bb4d4] hover:bg-[#edf4fb]"
+            onClick={() => scrollBy(1)}
+            type="button"
+          >
+            <ChevronRight className="size-5" />
+          </button>
+        </div>
+      </div>
+
+      <div
+        className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-4 pb-3 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+        ref={scrollerRef}
+      >
+        {showcaseProducts.map((product) => (
+          <button
+            className="group w-[180px] shrink-0 snap-start overflow-hidden rounded-xl border border-[#e6ecf4] bg-white text-left shadow-[0_4px_14px_rgba(10,47,107,0.05)] transition hover:-translate-y-0.5 hover:border-[#c7d2e4] hover:shadow-[0_10px_24px_rgba(10,47,107,0.1)] sm:w-[210px]"
+            key={product.name}
+            onClick={() => setSelected(product)}
+            type="button"
+          >
+            <ProductImage className="aspect-square" product={product} />
+            <div className="p-3">
+              <h3 className="line-clamp-1 text-sm font-black text-[#082a63]">{product.name}</h3>
+              <p className="mt-1 line-clamp-2 min-h-10 text-xs leading-5 text-[#607089]">{product.description}</p>
+              <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-[#0b62b4] group-hover:underline">
+                Ver detalhes
+                <ArrowRight className="size-3.5" />
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-2 flex justify-center">
+        <button
+          className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-bold text-[#607089] transition hover:bg-white hover:text-[#082a63]"
+          onClick={() => setIsAnnounceOpen(true)}
+          type="button"
+        >
+          <Info className="size-3.5" />
+          Como anunciar
+        </button>
+      </div>
+
+      {selected ? (
+        <ShowcaseDialog label={selected.name} onClose={() => setSelected(null)}>
+          <ProductImage className="aspect-[4/3] sm:aspect-[16/10]" product={selected} />
+          <div className="p-5 sm:p-6">
+            <h3 className="text-xl font-black text-[#082a63]">{selected.name}</h3>
+            <p className="mt-1 text-sm font-bold text-[#607089]">{selected.seller}</p>
+            <p className="mt-3 text-sm leading-6 text-[#30415f]">{selected.description}</p>
+            {selectedLink ? (
+              <a
+                className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-6 text-sm font-black text-white shadow-[0_10px_24px_rgba(37,211,102,0.3)] transition hover:bg-[#1ebe5a]"
+                href={selectedLink}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <MessageCircle className="size-5" />
+                Falar no WhatsApp
+              </a>
+            ) : (
+              <span className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#e6ecf4] px-6 text-sm font-black text-[#9aa8ba]">
+                <MessageCircle className="size-5" />
+                WhatsApp em breve
+              </span>
+            )}
+          </div>
+        </ShowcaseDialog>
+      ) : null}
+
+      {isAnnounceOpen ? (
+        <ShowcaseDialog label="Como anunciar" onClose={() => setIsAnnounceOpen(false)}>
+          <div className="p-5 pr-14 sm:p-6 sm:pr-16">
+            <span className="grid size-10 place-items-center rounded-xl bg-[#e6f6ef] text-[#008f5b]">
+              <Store className="size-5" />
+            </span>
+            <h3 className="mt-3 text-xl font-black text-[#082a63]">Como anunciar na Vitrine</h3>
+            {showcaseAnnounceSteps.length > 0 ? (
+              <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-[#30415f]">
+                {showcaseAnnounceSteps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            ) : (
+              <p className="mt-2 text-sm leading-6 text-[#30415f]">
+                As instruções para divulgar seu produto na Vitrine do Colaborador serão publicadas em breve.
+              </p>
+            )}
+          </div>
+        </ShowcaseDialog>
+      ) : null}
+    </section>
+  );
+}
+
+function ProductImage({ className, product }: { className: string; product: ShowcaseProduct }) {
+  if (product.image) {
+    return (
+      <Image
+        alt={product.name}
+        className={`w-full bg-[#f7fafc] object-cover ${className}`}
+        height={480}
+        src={product.image}
+        width={480}
+      />
+    );
+  }
+
+  return (
+    <div className={`grid w-full place-items-center bg-gradient-to-br from-[#edf4fb] to-[#e6f6ef] text-[#0b62b4] ${className}`}>
+      <ShoppingBag className="size-10 opacity-60" />
+    </div>
+  );
+}
+
+function ShowcaseDialog({ children, label, onClose }: { children: ReactNode; label: string; onClose: () => void }) {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 grid place-items-center bg-[#082a63]/30 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        aria-label={label}
+        aria-modal="true"
+        className="animate-rise relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white shadow-[0_28px_90px_rgba(8,42,99,0.3)]"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+      >
+        <button
+          aria-label="Fechar"
+          className="absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full bg-white/90 text-[#082a63] shadow-md transition hover:bg-white"
+          onClick={onClose}
+          type="button"
+        >
+          <X className="size-5 stroke-[2.5]" />
+        </button>
+        {children}
+      </div>
+    </div>
   );
 }
 

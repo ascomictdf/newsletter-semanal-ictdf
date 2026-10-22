@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6ecfb"/>
+      <stop offset="1" stop-color="#e6d5f3"/>
+    </linearGradient>
+    <linearGradient id="bottle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9c9d6"/>
+      <stop offset="1" stop-color="#e46a8b"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d9a930"/>
+      <stop offset="0.5" stop-color="#f6d77a"/>
+      <stop offset="1" stop-color="#c8941f"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#bg)"/>
+  <circle cx="70" cy="80" r="70" fill="#ffffff" opacity="0.4"/>
+  <ellipse cx="240" cy="392" rx="190" ry="18" fill="#b79ad0" opacity="0.4"/>
+  <!-- perfume -->
+  <rect x="200" y="96" width="44" height="34" rx="6" fill="url(#gold)"/>
+  <rect x="210" y="130" width="24" height="22" fill="#c8941f"/>
+  <rect x="150" y="150" width="144" height="236" rx="30" fill="url(#bottle)"/>
+  <rect x="150" y="150" width="144" height="236" rx="30" fill="#ffffff" opacity="0.08"/>
+  <rect x="168" y="172" width="16" height="190" rx="8" fill="#ffffff" opacity="0.35"/>
+  <rect x="186" y="246" width="72" height="44" rx="6" fill="#ffffff" opacity="0.85"/>
+  <rect x="198" y="260" width="48" height="6" rx="3" fill="#b5476a"/>
+  <rect x="206" y="272" width="32" height="5" rx="2.5" fill="#d58aa2"/>
+  <!-- batom -->
+  <g transform="translate(340 236)">
+    <path d="M6 0 l30 -14 v56 h-30z" fill="#c0392b"/>
+    <rect x="0" y="40" width="42" height="34" rx="4" fill="url(#gold)"/>
+    <rect x="-4" y="74" width="50" height="76" rx="8" fill="#1f2a44"/>
+    <rect x="4" y="82" width="6" height="58" rx="3" fill="#ffffff" opacity="0.2"/>
+  </g>
+  <!-- pote de creme -->
+  <g transform="translate(46 300)">
+    <rect x="0" y="0" width="106" height="24" rx="8" fill="#ffffff"/>
+    <rect x="6" y="24" width="94" height="62" rx="12" fill="#7a5bd6"/>
+    <rect x="14" y="34" width="8" height="42" rx="4" fill="#ffffff" opacity="0.3"/>
+    <rect x="30" y="46" width="46" height="16" rx="4" fill="#ffffff" opacity="0.85"/>
+  </g>
+  <!-- brilhos -->
+  <path d="M400 120 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6z" fill="#ffffff"/>
+  <path d="M110 220 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z" fill="#ffffff"/>
+</svg>

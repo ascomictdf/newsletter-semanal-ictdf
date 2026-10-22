@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef0fb"/>
+      <stop offset="1" stop-color="#d9def5"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6d77a"/>
+      <stop offset="0.5" stop-color="#d9a930"/>
+      <stop offset="1" stop-color="#f3cd62"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#bg)"/>
+  <circle cx="80" cy="400" r="90" fill="#ffffff" opacity="0.35"/>
+  <!-- colar -->
+  <path d="M110 90 Q240 330 370 90" fill="none" stroke="url(#gold)" stroke-width="6" stroke-dasharray="2 9" stroke-linecap="round"/>
+  <path d="M110 90 Q240 330 370 90" fill="none" stroke="#b8862a" stroke-width="2" opacity="0.5"/>
+  <circle cx="240" cy="226" r="10" fill="url(#gold)"/>
+  <path d="M240 236 l-26 34 26 40 26 -40z" fill="#1f6fd1"/>
+  <path d="M240 236 l-26 34 h52z" fill="#5aa2f2"/>
+  <path d="M240 236 v74" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+  <!-- brincos -->
+  <g transform="translate(120 300)">
+    <circle cx="0" cy="0" r="7" fill="url(#gold)"/>
+    <path d="M0 7 v18" stroke="url(#gold)" stroke-width="4"/>
+    <circle cx="0" cy="52" r="28" fill="none" stroke="url(#gold)" stroke-width="9"/>
+    <circle cx="0" cy="80" r="8" fill="#e0304f"/>
+  </g>
+  <g transform="translate(360 300)">
+    <circle cx="0" cy="0" r="7" fill="url(#gold)"/>
+    <path d="M0 7 v18" stroke="url(#gold)" stroke-width="4"/>
+    <circle cx="0" cy="52" r="28" fill="none" stroke="url(#gold)" stroke-width="9"/>
+    <circle cx="0" cy="80" r="8" fill="#e0304f"/>
+  </g>
+  <!-- pulseira -->
+  <ellipse cx="240" cy="400" rx="78" ry="26" fill="none" stroke="#7a5bd6" stroke-width="10"/>
+  <g fill="#ffffff" opacity="0.7">
+    <circle cx="180" cy="392" r="4"/><circle cx="215" cy="378" r="4"/><circle cx="255" cy="376" r="4"/><circle cx="295" cy="386" r="4"/>
+  </g>
+  <!-- brilhos -->
+  <path d="M390 160 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6z" fill="#ffffff"/>
+  <path d="M80 170 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z" fill="#ffffff"/>
+</svg>

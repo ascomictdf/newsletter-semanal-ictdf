@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e6f6ef"/>
+      <stop offset="1" stop-color="#cdebdc"/>
+    </linearGradient>
+    <clipPath id="ball1"><circle cx="190" cy="250" r="110"/></clipPath>
+    <clipPath id="ball2"><circle cx="350" cy="330" r="62"/></clipPath>
+  </defs>
+  <rect width="480" height="480" fill="url(#bg)"/>
+  <circle cx="420" cy="90" r="70" fill="#ffffff" opacity="0.4"/>
+  <ellipse cx="240" cy="380" rx="190" ry="20" fill="#7fbf9f" opacity="0.4"/>
+  <!-- novelo principal -->
+  <circle cx="190" cy="250" r="110" fill="#e46a8b"/>
+  <g clip-path="url(#ball1)" fill="none" stroke="#c94a6e" stroke-width="7" stroke-linecap="round">
+    <path d="M60 200 q130 -70 260 30"/>
+    <path d="M70 250 q120 -60 250 30"/>
+    <path d="M80 300 q110 -50 240 30"/>
+    <path d="M150 140 q-60 110 10 230"/>
+    <path d="M210 140 q-60 110 10 230"/>
+  </g>
+  <circle cx="155" cy="210" r="28" fill="#ffffff" opacity="0.18"/>
+  <!-- agulhas -->
+  <rect x="250" y="70" width="10" height="210" rx="5" transform="rotate(30 255 175)" fill="#9aa8ba"/>
+  <rect x="230" y="80" width="10" height="210" rx="5" transform="rotate(-12 235 185)" fill="#7a8699"/>
+  <circle cx="306" cy="88" r="12" fill="#f6c34a"/>
+  <circle cx="213" cy="81" r="12" fill="#5aa2f2"/>
+  <!-- novelo menor -->
+  <circle cx="350" cy="330" r="62" fill="#5aa2f2"/>
+  <g clip-path="url(#ball2)" fill="none" stroke="#2f7dd6" stroke-width="5" stroke-linecap="round">
+    <path d="M280 300 q70 -40 140 20"/>
+    <path d="M285 335 q65 -35 130 20"/>
+    <path d="M330 270 q-30 60 10 125"/>
+  </g>
+  <!-- fio solto -->
+  <path d="M290 350 q-60 40 -130 10 t-120 20" fill="none" stroke="#e46a8b" stroke-width="5" stroke-linecap="round"/>
+</svg>
