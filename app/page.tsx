@@ -522,18 +522,18 @@ export default function Home() {
 
           <section className="border-y border-[#d9e2ef] bg-[#f7fafc] px-4 py-5 sm:px-9 sm:py-6 lg:px-12">
             <article className="animate-rise relative overflow-hidden rounded-2xl bg-[#082a63] text-white shadow-[0_18px_44px_rgba(8,42,99,0.28)]">
-              <div className="relative lg:absolute lg:inset-0">
+              <div className="relative">
                 <Image
                   alt={featureArticle.imageAlt}
-                  className="h-auto w-full lg:h-full lg:object-cover lg:object-right"
+                  className="h-auto w-full"
                   height={349}
                   priority
                   src={featureArticle.image}
                   width={728}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#082a63] via-[#082a63]/10 to-transparent lg:bg-gradient-to-r lg:from-[#082a63] lg:from-25% lg:via-[#082a63]/80 lg:via-45% lg:to-transparent lg:to-70%" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#082a63] to-transparent sm:h-36" />
               </div>
-              <div className="relative px-5 pb-6 sm:px-8 sm:pb-8 lg:flex lg:min-h-[440px] lg:max-w-[52%] lg:flex-col lg:justify-end lg:p-10">
+              <div className="relative -mt-4 flex max-w-3xl flex-col px-5 pb-6 sm:-mt-10 sm:px-8 sm:pb-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="inline-flex items-center rounded-full bg-[#ee1b35] px-3 py-1 text-xs font-black uppercase text-white">
                     Matéria da semana
@@ -543,7 +543,7 @@ export default function Home() {
                     {featureArticle.meta}
                   </span>
                 </div>
-                <h2 className="mt-4 text-[1.625rem] font-black leading-[1.12] sm:text-4xl">{featureArticle.title}</h2>
+                <h2 className="mt-4 text-[1.625rem] font-black leading-[1.12] sm:text-4xl lg:text-[2.625rem]">{featureArticle.title}</h2>
                 <p className="mt-3 text-sm leading-6 text-[#dbe6f5] sm:text-base sm:leading-7">{featureArticle.summary}</p>
                 <a
                   className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#ee1b35] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(238,27,53,0.35)] transition hover:bg-[#c8142a] sm:w-auto sm:self-start"
